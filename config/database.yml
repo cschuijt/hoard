@@ -26,4 +26,4 @@ production:
   database: hoard
   pool: 5
   username: deploy
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.database_password %>
