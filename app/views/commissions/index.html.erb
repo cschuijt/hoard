@@ -1,2 +1,21 @@
-<h1>Commissions#index</h1>
-<p>Find me in app/views/commissions/index.html.erb</p>
+<h1>Commissions</h1>
+
+<% @commissions.each do |c| %>
+  <h4><%= c.title %></h4>
+
+  <p>
+    <%= c.description %>
+  </p>
+
+  <p>
+    <% if c.finished? %>
+      <%= "Finished" %>
+    <% elsif c.started? %>
+      <%= "Started" %>
+    <% else %>
+      <%= "Not started" %>
+    <% end %>
+  </p>
+
+  <hr>
+<% end %>
