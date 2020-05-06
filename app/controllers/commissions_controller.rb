@@ -12,7 +12,7 @@ class CommissionsController < ApplicationController
   end
 
   def create
-    @commission = Commission.new(params[:commission])
+    @commission = Commission.new(commission_params)
 
     if @commission.valid?
       @commission.save

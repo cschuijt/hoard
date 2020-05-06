@@ -1,2 +1,23 @@
-<h1>Commissions#new</h1>
-<p>Find me in app/views/commissions/new.html.erb</p>
+<h1>New Commission</h1>
+
+<%= form_with model: @commission do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+
+  <%= f.label :started  %>
+  <%= f.check_box :started %>
+  <%= f.label :started_at %>
+  <%= f.date_field :started_at %>
+
+  <%= f.label :finished %>
+  <%= f.check_box :finished %>
+  <%= f.label :finished_at %>
+  <%= f.date_field :finished_at %>
+
+  <%= f.submit %>
+
+<% end %>
