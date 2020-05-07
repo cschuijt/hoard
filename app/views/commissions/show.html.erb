@@ -1,20 +1,30 @@
 <h1>
-  <%= @commission.title %>
+  <%= @c.title %>
 </h1>
 <p>
-  <%= @commission.description %>
+  <%= @c.description %>
 </p>
 
 <p>
-  <% unless @commission.finished? %>
-    <% if @commission.started? %>
+  <% unless @c.finished? %>
+    <% if @c.started? %>
       <%= "Commission started " %>
-      <%= time_ago_in_words(@commission.started_at) + " ago." if @commission.started_at %>
+      <%= time_ago_in_words(@c.started_at) + " ago." if @c.started_at %>
     <% else %>
       <%= "Commission not yet started." %>
     <% end %>
   <% else %>
     <%= "Commission finished " %>
-    <%= time_ago_in_words(@commission.finished_at) + " ago." if @commission.finished_at %>
+    <%= time_ago_in_words(@c.finished_at) + " ago." if @c.finished_at %>
+  <% end %>
+</p>
+
+<p>
+  <% unless @c.finished? %>
+    <% unless @c.started? %>
+      <%= link_to "Mark as started", commission_start_url(@c), method: :patch %>
+    <% else %>
+      <%= link_to "Mark as finished", commission_finish_url(@c), method: :patch %>
+    <% end %>
   <% end %>
 </p>

@@ -1,7 +1,7 @@
 <h1>Commissions</h1>
 
 <% @commissions.each do |c| %>
-  <h4><%= c.title %></h4>
+  <h4><%= link_to c.title, c %></h4>
 
   <p>
     <%= c.description %>

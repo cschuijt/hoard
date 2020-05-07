@@ -4,7 +4,7 @@ class CommissionsController < ApplicationController
   end
 
   def show
-    @commission = Commission.find(params[:id])
+    @c = Commission.find(params[:id])
   end
 
   def new
@@ -39,6 +39,29 @@ class CommissionsController < ApplicationController
   def destroy
     Commission.find(params[:id]).destroy
     redirect_to 'index'
+  end
+
+
+  def start
+    @c = Commission.find(params[:id])
+    if @c.start
+      flash[:notice] = @c.title + " has been marked as started."
+    else
+      flash[:error] = @c.title + " has already been started."
+    end
+
+    redirect_to @c
+  end
+
+  def finish
+    @c = Commission.find(params[:id])
+    if @c.finish
+      flash[:notice] = @c.title + " has been marked as finished."
+    else
+      flash[:error] = @c.title + " has already been finished."
+    end
+
+    redirect_to @c
   end
 
   private
