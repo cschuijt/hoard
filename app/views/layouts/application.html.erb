@@ -2,11 +2,7 @@
 <html>
   <head>
     <title>
-      <% if content_for?(:title) %>
-        <%= content_for(:title) + " | Hoard" %>
-      <% else %>
-        Hoard
-      <% end %>
+      <%= title_for(content_for :title) %>
     </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
