@@ -1,6 +1,6 @@
 <% unless flash.empty? %>
   <% flash.each do |type, message| %>
-    <div class="uk-padding-small">
+    <div>
       <div class="uk-alert-<%= flash_type(type) %>" uk-alert>
         <a class="uk-alert-close" uk-close></a>
         <h3><%= type.capitalize %></h3>
