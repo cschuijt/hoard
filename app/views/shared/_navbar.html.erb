@@ -1,0 +1,20 @@
+<nav class="uk-navbar-container <%= "uk-navbar-transparent" if local_assigns[:transparent] %>" uk-navbar>
+  <div class="uk-navbar-left">
+    <a class="uk-navbar-item uk-logo" href="#">Hoard</a>
+
+    <ul class="uk-navbar-nav">
+      <li><a href="">Home</a></li>
+      <li><a href="">Browse</a></li>
+      <li><a href="">Upload</a></li>
+    </ul>
+  </div>
+
+  <div class="uk-navbar-right">
+    <div class="uk-navbar-item">
+      <!-- TODO Build logic for authorization and user menu here -->
+      <% if true %>
+        <a class="uk-button uk-button-default" href="#">Log In</a>
+      <% end %>
+    </div>
+  </div>
+</nav>
