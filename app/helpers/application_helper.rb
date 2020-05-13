@@ -12,6 +12,8 @@ module ApplicationHelper
   def flash_type(type)
     if type == "notice"
       "primary"
+    elsif type == "alert"
+      "danger"
     else
       type
     end

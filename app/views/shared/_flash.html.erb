@@ -3,7 +3,7 @@
     <div>
       <div class="uk-alert-<%= flash_type(type) %>" uk-alert>
         <a class="uk-alert-close" uk-close></a>
-        <h3><%= type.capitalize %></h3>
+        <h3><%= flash_type(type).capitalize %></h3>
         <p>
           <%= message %>
         </p>
