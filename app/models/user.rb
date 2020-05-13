@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-  devise :omniauthable, :rememberable, :timeoutable, :trackable
+  devise :omniauthable, :rememberable, :trackable
 end
