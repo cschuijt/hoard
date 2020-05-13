@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_183716) do
+ActiveRecord::Schema.define(version: 2020_05_13_193128) do
 
   create_table "commissions", force: :cascade do |t|
     t.string "title"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 2020_05_05_183716) do
     t.index ["started"], name: "index_commissions_on_started"
     t.index ["started_at"], name: "index_commissions_on_started_at"
     t.index ["title"], name: "index_commissions_on_title"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
