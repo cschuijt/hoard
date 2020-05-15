@@ -11,9 +11,11 @@
 
   <div class="uk-navbar-right">
     <div class="uk-navbar-item">
-      <!-- TODO Build logic for authorization and user menu here -->
-      <% if true %>
-        <a class="uk-button uk-button-default" href="#">Log In</a>
+      <!-- TODO Build user menu here -->
+      <% if user_signed_in? %>
+        <%= link_to "Log Out", destroy_user_session_url, method: :delete, class: "uk-button uk-button-default" %>
+      <% else %>
+        <%= link_to "Log In", user_twitter_omniauth_authorize_url, class: "uk-button uk-button-default" %>
       <% end %>
     </div>
   </div>
