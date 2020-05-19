@@ -18,6 +18,9 @@
   <%= f.label :finished_at %>
   <%= f.date_field :finished_at %>
 
+  <%= f.label :files %>
+  <%= f.file_field :files, multiple: true %>
+
   <%= f.submit %>
 
 <% end %>

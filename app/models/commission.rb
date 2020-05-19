@@ -1,6 +1,12 @@
 class Commission < ApplicationRecord
   validates :title, presence: true, length: { in: 3..128 }
 
+  # File uploads through Active Storage
+  has_many_attached :files
+  validates :files, content_type: ['image/png', 'image/jpg', 'image/jpeg',
+                                   'image/gif', 'image/webp'],
+                    size:         { less_than: 10.megabytes }
+
   def start
     if self.started?
       return false

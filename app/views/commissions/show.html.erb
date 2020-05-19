@@ -28,3 +28,23 @@
     <% end %>
   <% end %>
 </p>
+
+<p>
+  <%= form_with url: {action: 'upload_file'} do |f| %>
+    <%= f.file_field :files, multiple: true %>
+    <%= f.submit %>
+  <% end %>
+</p>
+
+<% @c.files.each do |file| %>
+  <div>
+    <div class="uk-card uk-card-default">
+      <div class="uk-card-body">
+        <%= image_tag file %>
+      </div>
+      <div class="uk-card-footer">
+        <%= link_to "Delete", delete_file_commission_url(file), method: :delete %>
+      </div>
+    </div>
+  </div>
+<% end %>
