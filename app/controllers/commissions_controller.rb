@@ -41,7 +41,7 @@ class CommissionsController < ApplicationController
     redirect_to 'index'
   end
 
-
+  # Starting and finishing methods
   def start
     @c = Commission.find(params[:id])
     if @c.start
@@ -64,9 +64,26 @@ class CommissionsController < ApplicationController
     redirect_to @c
   end
 
+
+  def upload_file
+    @commission = Commission.find(params[:id])
+    @commission.files.attach(params[:files])
+
+    redirect_to @commission
+  end
+
+  def delete_file
+    @file = ActiveStorage::Attachment.find(params[:id])
+    @commission = Commission.find(@file.record_id)
+
+    @file.purge
+    redirect_to @commission
+  end
+
   private
     def commission_params
       params.require(:commission).permit(:title, :description, :started,
-                                         :finished, :started_at, :finished_at)
+                                         :finished, :started_at, :finished_at,
+                                          files: [])
     end
 end

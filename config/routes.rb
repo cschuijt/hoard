@@ -9,7 +9,12 @@ Rails.application.routes.draw do
     delete 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :commissions
+  resources :commissions do
+    member do
+      post   'upload',     to: 'commissions#upload_file', as: 'upload_file'
+      delete 'delete/:id', to: 'commissions#delete_file', as: 'delete_file'
+    end
+  end
   patch 'commissions/:id/start',  to: 'commissions#start',  as: 'commission_start'
   patch 'commissions/:id/finish', to: 'commissions#finish', as: 'commission_finish'
 end
