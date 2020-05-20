@@ -1,4 +1,7 @@
 class CommissionsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user,       except: [:index, :show, :new, :create]
+
   def index
     @commissions = Commission.all
   end
@@ -13,6 +16,7 @@ class CommissionsController < ApplicationController
 
   def create
     @commission = Commission.new(commission_params)
+    @commission.user = current_user
 
     if @commission.valid?
       @commission.save
@@ -38,7 +42,7 @@ class CommissionsController < ApplicationController
 
   def destroy
     Commission.find(params[:id]).destroy
-    redirect_to 'index'
+    redirect_to commissions_url
   end
 
   # Starting and finishing methods
@@ -85,5 +89,13 @@ class CommissionsController < ApplicationController
       params.require(:commission).permit(:title, :description, :started,
                                          :finished, :started_at, :finished_at,
                                           files: [])
+    end
+
+    def correct_user
+      @commission = current_user.commissions.find_by(id: params[:id])
+      if @commission.nil?
+        flash[:warning] = "You are not authorized to perform this action."
+        redirect_to root_url
+      end
     end
 end
