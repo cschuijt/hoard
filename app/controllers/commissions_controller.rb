@@ -1,4 +1,6 @@
 class CommissionsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
+
   def index
     @commissions = Commission.all
   end
@@ -13,6 +15,7 @@ class CommissionsController < ApplicationController
 
   def create
     @commission = Commission.new(commission_params)
+    @commission.user = current_user
 
     if @commission.valid?
       @commission.save
