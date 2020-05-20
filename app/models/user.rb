@@ -5,6 +5,8 @@ class User < ApplicationRecord
   validates :name,     presence: true
   validates :uid,      presence: true, uniqueness: true
 
+  has_many :commissions
+
   def self.from_omniauth(auth)
     user = find_or_initialize_by(uid: auth.uid, provider: auth.provider)
 

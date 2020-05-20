@@ -1,4 +1,6 @@
 class Commission < ApplicationRecord
+  belongs_to :user
+
   validates :title, presence: true, length: { in: 3..128 }
 
   # File uploads through Active Storage
