@@ -27,6 +27,8 @@
       <%= link_to "Mark as finished", commission_finish_url(@c), method: :patch %>
     <% end %>
   <% end %>
+
+  <%= link_to "Delete commission", @c, method: :delete %>
 </p>
 
 <p>
