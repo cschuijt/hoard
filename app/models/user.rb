@@ -8,14 +8,13 @@ class User < ApplicationRecord
   has_many :commissions
 
   def self.from_omniauth(auth)
-    user = find_or_initialize_by(uid: auth.uid, provider: auth.provider)
+    user = find_or_initialize_by(uid: auth[:uid], provider: auth[:provider])
 
     # Reassign these attributes and save them in case they were changed
     # or in case the user is new here
-    user.username  = auth.info.nickname
-    user.name      = auth.info.name
-    user.image_url = auth.info.image
-    user.save
+    user.username  = auth[:info][:nickname]
+    user.name      = auth[:info][:name]
+    user.image_url = auth[:info][:image]
 
     # Return the user object
     user

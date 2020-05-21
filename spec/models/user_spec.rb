@@ -32,10 +32,9 @@ RSpec.describe User, type: :model do
     end
 
     it "should be unique" do
-      user = build(:user, uid: "12345678")
-      user.save
-
+      user = create(:user, uid: "12345678")
       user2 = build(:user, uid: "12345678")
+
       expect(user2).to be_invalid
     end
   end
@@ -49,6 +48,52 @@ RSpec.describe User, type: :model do
     it "should not be blank" do
       user = build(:user, name: "")
       expect(user).to be_invalid
+    end
+  end
+
+  context "commissions" do
+    it "should return a user's commissions" do
+      user = create(:user)
+      commission  = create(:commission, user: user)
+      commission2 = create(:commission, user: user)
+
+      expect(user.commissions).to include(commission)
+      expect(user.commissions).to include(commission2)
+    end
+
+    it "should not return another user's commissions" do
+      commission = create(:commission)
+      user = create(:user)
+
+      expect(user.commissions).not_to include(commission)
+    end
+  end
+
+  context "omniauth callback" do
+    it "should match a user with the same uid" do
+      user = create(:user, uid: "1234")
+      authentication_hash = { provider: "twitter", uid: "1234", info:
+                            { nickname: "asdf",    name: "Asdf", image: "fuck" } }
+
+      expect(User.from_omniauth(authentication_hash)).to eq(user)
+    end
+
+    it "should create a new user for an unknown uid" do
+      authentication_hash = { provider: "twitter", uid: "70", info:
+                            { nickname: "asdf",    name: "Asdf", image: "fuck" } }
+
+      expect(User.from_omniauth(authentication_hash)).to be_a_new(User)
+    end
+
+    it "should edit the user's details" do
+      create(:user, uid: "1234", name: "Asdf")
+      authentication_hash = { provider: "twitter", uid: "1234", info:
+                            { nickname: "asdf",    name: "Qwer", image: "fuck" } }
+                            
+      user = User.from_omniauth(authentication_hash)
+
+      expect(user.name).to eq("Qwer")
+      expect(user.name).not_to eq("Asdf")
     end
   end
 end

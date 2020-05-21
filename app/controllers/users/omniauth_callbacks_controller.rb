@@ -3,7 +3,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
+    @user.save!
     sign_in @user
+
     flash[:success] = "You are now logged in as @" + @user.username
     redirect_to root_url
   end
