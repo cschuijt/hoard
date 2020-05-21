@@ -15,5 +15,12 @@ module Hoard
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Disable minitest generators in favor of rspec
+    config.generators do |g|
+      g.test_framework :rspec, fixture: false
+      g.view_specs false
+      g.helper_specs false
+    end
   end
 end
