@@ -21,6 +21,9 @@
   <%= f.label :files %>
   <%= f.file_field :files, multiple: true %>
 
+  <%= f.label :private %>
+  <%= f.check_box :private %>
+
   <%= f.submit %>
 
 <% end %>
