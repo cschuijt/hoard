@@ -35,6 +35,8 @@ jobs:
       run: sudo apt install libsqlite3-dev
     - name: Install gems
       run: bundle install
+    - name: Install yarn packages
+      run: yarn install --check-files
     - name: Migrate database
       run: bundle exec rails db:migrate
     - name: Run tests
