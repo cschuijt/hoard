@@ -29,6 +29,8 @@ jobs:
       uses: ruby/setup-ruby@ec106b438a1ff6ff109590de34ddc62c540232e0
       with:
         ruby-version: 2.7.1
+    - name: Set up master key
+      run: echo ${{ secrets.MASTER_KEY }} > config/master.key
     - name: Intall system dependencies
       run: sudo apt install libsqlite3-dev
     - name: Install gems
