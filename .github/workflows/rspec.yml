@@ -35,5 +35,7 @@ jobs:
       run: sudo apt install libsqlite3-dev
     - name: Install gems
       run: bundle install
+    - name: Migrate database
+      run: bundle exec rails db:migrate
     - name: Run tests
       run: bundle exec rspec
