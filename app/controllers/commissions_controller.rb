@@ -86,9 +86,9 @@ class CommissionsController < ApplicationController
 
   private
     def commission_params
-      params.require(:commission).permit(:title, :description, :started,
-                                         :finished, :started_at, :finished_at,
-                                          files: [])
+      params.require(:commission).permit(:title,    :description, :started,
+                                         :finished, :started_at,  :finished_at,
+                                         :private,   files: [])
     end
 
     def correct_user
