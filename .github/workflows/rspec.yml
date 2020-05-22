@@ -37,7 +37,9 @@ jobs:
       run: bundle install
     - name: Install yarn packages
       run: yarn install --check-files
-    - name: Migrate database
+    - name: Migrate development database
       run: bundle exec rails db:migrate
+    - name: Migrate test database
+      run: rails db:migrate RAILS_ENV=test
     - name: Run tests
       run: bundle exec rspec
