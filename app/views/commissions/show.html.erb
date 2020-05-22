@@ -1,5 +1,8 @@
 <h1>
   <%= @c.title %>
+  <% if @c.private? %>
+    <span class="uk-label">Private</span>
+  <% end %>
 </h1>
 <p>
   <%= @c.description %>
