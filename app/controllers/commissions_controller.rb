@@ -1,6 +1,7 @@
 class CommissionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user,       except: [:index, :show, :new, :create]
+  before_action :private_filter,     only:    :show
 
   def index
     @commissions = Commission.all
@@ -86,9 +87,9 @@ class CommissionsController < ApplicationController
 
   private
     def commission_params
-      params.require(:commission).permit(:title, :description, :started,
-                                         :finished, :started_at, :finished_at,
-                                          files: [])
+      params.require(:commission).permit(:title,    :description, :started,
+                                         :finished, :started_at,  :finished_at,
+                                         :private,   files: [])
     end
 
     def correct_user
@@ -96,6 +97,17 @@ class CommissionsController < ApplicationController
       if @commission.nil?
         flash[:warning] = "You are not authorized to perform this action."
         redirect_to root_url
+      end
+    end
+
+    def private_filter
+      @commission = Commission.find(params[:id])
+
+      if @commission.private?
+        unless user_signed_in? && current_user == @commission.user
+          flash[:warning] = "This commission is marked private, only the uploader can access it."
+          redirect_to commissions_url
+        end
       end
     end
 end

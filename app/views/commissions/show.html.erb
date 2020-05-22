@@ -1,5 +1,8 @@
 <h1>
   <%= @c.title %>
+  <% if @c.private? %>
+    <span class="uk-label">Private</span>
+  <% end %>
 </h1>
 <p>
   <%= @c.description %>
@@ -27,6 +30,8 @@
       <%= link_to "Mark as finished", commission_finish_url(@c), method: :patch %>
     <% end %>
   <% end %>
+
+  <%= link_to "Edit commission", edit_commission_url(@c) %>
 
   <%= link_to "Delete commission", @c, method: :delete %>
 </p>
