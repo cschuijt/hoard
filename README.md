@@ -50,7 +50,7 @@ repository at a later point in time.
 
 ### Test suite
 
-There's no tests yet, oops.
+Hoard uses rspec-rails for testing. To run the test suite, use `bundle exec rspec`. At the moment, it's just a few model specs, request and system specs are coming soon.
 
 ### Deployment
 
