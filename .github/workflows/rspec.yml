@@ -59,9 +59,11 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Install yarn packages
       run: yarn install --check-files
+      
     - name: Prepare database
       run: |
         bundle exec rails db:prepare
         bundle exec rails db:migrate RAILS_ENV=test
+        
     - name: Run tests
       run: bundle exec rspec
