@@ -1,10 +1,10 @@
 class CommissionsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:show                       ]
   before_action :correct_user,       except: [:index, :show, :new, :create]
-  before_action :private_filter,     only:    :show
+  before_action :private_filter,     only:   [:show                       ]
 
   def index
-    @commissions = Commission.all
+    @commissions = current_user.commissions
   end
 
   def show
