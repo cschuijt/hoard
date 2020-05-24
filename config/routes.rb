@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  #homepage
+  # Homepage
   root to: 'pages#home'
 
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
@@ -15,6 +15,9 @@ Rails.application.routes.draw do
       delete 'delete/:id', to: 'commissions#delete_file', as: 'delete_file'
     end
   end
+
   patch 'commissions/:id/start',  to: 'commissions#start',  as: 'commission_start'
   patch 'commissions/:id/finish', to: 'commissions#finish', as: 'commission_finish'
+
+  resources :folders
 end
