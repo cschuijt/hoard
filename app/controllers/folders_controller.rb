@@ -44,6 +44,6 @@ class FoldersController < ApplicationController
 
   private
     def folder_params
-      params.require(:folder).permit(:title, :description, :hidden)
+      params.require(:folder).permit(:title, :description, :private)
     end
 end
