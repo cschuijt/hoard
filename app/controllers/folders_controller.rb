@@ -54,7 +54,7 @@ class FoldersController < ApplicationController
 
       if @folder.private?
         authenticate_user!
-        
+
         unless current_user == @folder.user
           flash[:warning] = "This commission is marked private, only the uploader can access it."
           redirect_to folders_url
@@ -66,7 +66,7 @@ class FoldersController < ApplicationController
       @folder = current_user.folders.find_by(id: params[:id])
       if @folder.nil?
         flash[:warning] = "You are not authorized to perform this action."
-        redirect_to root_url
+        redirect_to folders_url
       end
     end
 end
