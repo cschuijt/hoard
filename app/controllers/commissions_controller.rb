@@ -12,12 +12,11 @@ class CommissionsController < ApplicationController
   end
 
   def new
-    @commission = Commission.new
+    @commission = current_user.commissions.new
   end
 
   def create
-    @commission = Commission.new(commission_params)
-    @commission.user = current_user
+    @commission = current_user.commissions.new(commission_params)
 
     if @commission.valid?
       @commission.save
