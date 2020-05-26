@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_24_234636) do
+ActiveRecord::Schema.define(version: 2020_05_26_143315) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,13 @@ ActiveRecord::Schema.define(version: 2020_05_24_234636) do
     t.index ["user_id"], name: "index_commissions_on_user_id"
   end
 
+  create_table "commissions_folders", id: false, force: :cascade do |t|
+    t.integer "commission_id"
+    t.integer "folder_id"
+    t.index ["commission_id"], name: "index_commissions_folders_on_commission_id"
+    t.index ["folder_id"], name: "index_commissions_folders_on_folder_id"
+  end
+
   create_table "folders", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -79,5 +86,7 @@ ActiveRecord::Schema.define(version: 2020_05_24_234636) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "commissions_folders", "commissions"
+  add_foreign_key "commissions_folders", "folders"
   add_foreign_key "folders", "users"
 end
