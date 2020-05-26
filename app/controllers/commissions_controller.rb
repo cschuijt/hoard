@@ -69,6 +69,24 @@ class CommissionsController < ApplicationController
   end
 
 
+  # Adding to and removing from folders
+  def add_to_folder
+    @f = Folder.find(params[:folder_id])
+    @c = Commission.find(params[:id])
+
+    @f.commissions << @c
+    redirect_to @f
+  end
+
+  def remove_from_folder
+    @f = Folder.find(params[:folder_id])
+    @c = @f.commissions.find(params[:id])
+
+    @f.commissions.delete @c
+    redirect_to @f
+  end
+
+  # File uploads
   def upload_file
     @commission = Commission.find(params[:id])
     @commission.files.attach(params[:files])
