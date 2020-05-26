@@ -18,7 +18,7 @@ repository and try to get it working for yourself.
 
 ## Technical stuff
 
-Hoard runs on **Rails 6.0.2.2, Ruby 2.7.1p83**. Other versions of Ruby should
+Hoard runs on **Rails 6.0.3.1, Ruby 2.7.1p83**. Other versions of Ruby should
 work just fine as well. In production, the database is currently configured to
 use Postgres, but should be reconfigurable to SQLite or something else. File
 uploading and storage uses the S3 API to talk to Backblaze B2, but again, freely
