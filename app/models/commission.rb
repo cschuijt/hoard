@@ -1,6 +1,6 @@
 class Commission < ApplicationRecord
-  belongs_to              :user
-  has_and_belongs_to_many :folders
+  belongs_to :user
+  has_many   :folders, through: :filings
 
   validates :title, presence: true, length: { in: 3..128 }
 

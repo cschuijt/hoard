@@ -1,6 +1,6 @@
 class Folder < ApplicationRecord
   belongs_to :user
-  has_and_belongs_to_many :commissions
+  has_many :commissions, through: :filings
 
   validates :title, presence: true, length: { in: 3..128 }
 end
