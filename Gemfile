@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.1'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+gem 'rails', '~> 6.0.3', '>= 6.0.3.1'
 
 # Postgres in production, SQLite in development
 gem 'sqlite3', '~> 1.4'
@@ -20,21 +20,20 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 # Authentication through Devise and OmniAuth
-gem 'devise'
-gem 'omniauth'
-gem 'omniauth-twitter'
+gem 'devise', '~> 4.7.1'
+gem 'omniauth', '~> 1.9.1'
+gem 'omniauth-twitter', '~> 1.4.0'
 
 # File uploads, validation and image processing
-gem 'active_storage_validations'
-gem 'mini_magick'
-gem 'image_processing'
+gem 'active_storage_validations', '~> 0.8.9'
+gem 'image_processing', '~> 1.11.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   gem 'rspec-rails', '~> 4.0.0'
-  gem "factory_bot_rails"
+  gem "factory_bot_rails", '~> 5.2.0'
 end
 
 group :development do
