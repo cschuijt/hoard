@@ -15,6 +15,7 @@
 <% unless @folder.commissions.empty? %>
   <h4> Commissions in this folder:</h4>
   <% @folder.commissions.each do |c| %>
+    <%= image_tag c.thumbnail if c.files.attached? %>
     <p>
       <%= link_to c.title, folder_commission_url(@folder, c) %>
       <% if c.private? %>

@@ -18,6 +18,4 @@ module ApplicationHelper
       type
     end
   end
-
-  # Helper method for thumbnail or filler
 end
