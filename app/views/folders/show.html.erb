@@ -20,6 +20,7 @@
       <% if c.private? %>
         <span class="uk-label">Private</span>
       <% end %>
+      (<%= link_to "Delete", remove_from_folder_commission_url(@folder, c), method: :delete %>)
     </p>
   <% end %>
 <% else %>
