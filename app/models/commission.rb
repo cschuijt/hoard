@@ -3,7 +3,8 @@ class Commission < ApplicationRecord
   has_many   :filings
   has_many   :folders, through: :filings
 
-  validates :title, presence: true, length: { in: 3..128 }
+  validates :title,       presence: true, length: { in: 3..128 }
+  validates :description,                 length: { maximum: 20000 }
 
   # File uploads through Active Storage
   has_many_attached :files
