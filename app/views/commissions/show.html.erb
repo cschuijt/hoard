@@ -43,6 +43,12 @@
   <% end %>
 </p>
 
+<p>
+  <%= form_with url: {action: 'add_to_folder'} do |f| %>
+    <%= f.collection_select :folder_id, current_user.folders, :id, :title, prompt: true %>
+    <%= f.submit %>
+  <% end %>
+</p>
 <% @c.files.each do |file| %>
   <div>
     <div class="uk-card uk-card-default">

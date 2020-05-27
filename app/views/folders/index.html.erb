@@ -1,0 +1,23 @@
+<h1>Folders#index</h1>
+
+<% unless @folders.empty? %>
+  <% @folders.each do |f| %>
+    <h4>
+      <%= link_to f.title, f %>
+      <% if f.private? %>
+        <span class="uk-label">Private</span>
+      <% end %>
+    </h4>
+
+    <p>
+      <%= f.description %>
+    </p>
+
+    <hr>
+  <% end %>
+<% else %>
+  <p>
+    You don't have any folders yet. Why not
+    <%= link_to "create a new one?", new_folder_url %>
+  </p>
+<% end %>

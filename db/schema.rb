@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_210004) do
+ActiveRecord::Schema.define(version: 2020_05_26_232439) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +52,25 @@ ActiveRecord::Schema.define(version: 2020_05_21_210004) do
     t.index ["user_id"], name: "index_commissions_on_user_id"
   end
 
+  create_table "filings", force: :cascade do |t|
+    t.integer "commission_id"
+    t.integer "folder_id"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["commission_id"], name: "index_filings_on_commission_id"
+    t.index ["folder_id"], name: "index_filings_on_folder_id"
+  end
+
+  create_table "folders", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.boolean "private", default: false
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_folders_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
@@ -69,4 +88,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_210004) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "filings", "commissions"
+  add_foreign_key "filings", "folders"
+  add_foreign_key "folders", "users"
 end

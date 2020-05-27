@@ -6,6 +6,7 @@ class User < ApplicationRecord
   validates :uid,      presence: true, uniqueness: true
 
   has_many :commissions
+  has_many :folders
 
   def self.from_omniauth(auth)
     user = find_or_initialize_by(uid: auth[:uid], provider: auth[:provider])

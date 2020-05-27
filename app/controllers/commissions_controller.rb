@@ -8,16 +8,19 @@ class CommissionsController < ApplicationController
   end
 
   def show
-    @c = Commission.find(params[:id])
+    if params[:folder_id]
+      @c = Folder.find(params[:folder_id]).commissions.find(params[:id])
+    else
+      @c = Commission.find(params[:id])
+    end
   end
 
   def new
-    @commission = Commission.new
+    @commission = current_user.commissions.new
   end
 
   def create
-    @commission = Commission.new(commission_params)
-    @commission.user = current_user
+    @commission = current_user.commissions.new(commission_params)
 
     if @commission.valid?
       @commission.save
@@ -70,6 +73,24 @@ class CommissionsController < ApplicationController
   end
 
 
+  # Adding to and removing from folders
+  def add_to_folder
+    @f = Folder.find(params[:folder_id])
+    @c = Commission.find(params[:id])
+
+    @f.commissions << @c
+    redirect_to @f
+  end
+
+  def remove_from_folder
+    @f = Folder.find(params[:folder_id])
+    @c = @f.commissions.find(params[:id])
+
+    @f.commissions.delete @c
+    redirect_to @f
+  end
+
+  # File uploads
   def upload_file
     @commission = Commission.find(params[:id])
     @commission.files.attach(params[:files])

@@ -10,4 +10,9 @@ FactoryBot.define do
     title { "Asdf" }
     user
   end
+
+  factory :folder do
+    title { "Asdf" }
+    user
+  end
 end
