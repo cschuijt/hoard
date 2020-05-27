@@ -69,6 +69,24 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context "folders" do
+    it "should return a user's folders" do
+      user = create(:user)
+      folder  = create(:folder, user: user)
+      folder2 = create(:folder, user: user)
+
+      expect(user.folders).to include(folder)
+      expect(user.folders).to include(folder2)
+    end
+
+    it "should not return another user's folders" do
+      folder = create(:folder)
+      user = create(:user)
+
+      expect(user.folders).not_to include(folder)
+    end
+  end
+
   context "omniauth callback" do
     it "should match a user with the same uid" do
       user = create(:user, uid: "1234")
@@ -89,7 +107,7 @@ RSpec.describe User, type: :model do
       create(:user, uid: "1234", name: "Asdf")
       authentication_hash = { provider: "twitter", uid: "1234", info:
                             { nickname: "asdf",    name: "Qwer", image: "fuck" } }
-                            
+
       user = User.from_omniauth(authentication_hash)
 
       expect(user.name).to eq("Qwer")
