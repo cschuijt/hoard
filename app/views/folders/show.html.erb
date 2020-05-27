@@ -1,2 +1,29 @@
-<h1>Folders#show</h1>
-<p>Find me in app/views/folders/show.html.erb</p>
+<h1>
+  <%= @folder.title %>
+  <% if @folder.private? %>
+    <span class="uk-label">Private</span>
+  <% end %>
+</h1>
+<p>
+  <%= @folder.description %>
+</p>
+
+<p>
+  <%= link_to "Edit folder", edit_folder_url(@folder) %>
+  <%= link_to "Delete folder", @folder, method: :delete %>
+</p>
+<% unless @folder.commissions.empty? %>
+  <h4> Commissions in this folder:</h4>
+  <% @folder.commissions.each do |c| %>
+    <p>
+      <%= link_to c.title, folder_commission_url(@folder, c) %>
+      <% if c.private? %>
+        <span class="uk-label">Private</span>
+      <% end %>
+    </p>
+  <% end %>
+<% else %>
+  <p>
+    This folder has no commissions in it yet.
+  </p>
+<% end %>
