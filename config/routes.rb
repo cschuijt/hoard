@@ -19,5 +19,7 @@ Rails.application.routes.draw do
   patch 'commissions/:id/start',  to: 'commissions#start',  as: 'commission_start'
   patch 'commissions/:id/finish', to: 'commissions#finish', as: 'commission_finish'
 
-  resources :folders
+  resources :folders do
+    resources :commissions, only: :show
+  end
 end

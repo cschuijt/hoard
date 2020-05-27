@@ -8,7 +8,11 @@ class CommissionsController < ApplicationController
   end
 
   def show
-    @c = Commission.find(params[:id])
+    if params[:folder_id]
+      @c = Folder.find(params[:folder_id]).commissions.find(params[:id])
+    else
+      @c = Commission.find(params[:id])
+    end
   end
 
   def new
