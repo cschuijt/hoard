@@ -2,32 +2,34 @@
 
 <% unless @commissions.empty? %>
   <% @commissions.each do |c| %>
-    <h4>
-      <%= link_to c.title, c %>
-      <% if c.private? %>
-        <span class="uk-label">Private</span>
-      <% end %>
-    </h4>
-
-    <p>
-      <%= c.user.username if c.user %>
-    </p>
-
-    <p>
-      <%= c.description %>
-    </p>
-
-    <p>
-      <% if c.finished? %>
-        <%= "Finished" %>
-      <% elsif c.started? %>
-        <%= "Started" %>
-      <% else %>
-        <%= "Not started" %>
-      <% end %>
-    </p>
-
-    <hr>
+    <div class="uk-card uk-card-default">
+      <div class="uk-card-body">
+        <%= image_tag c.thumbnail if c.files.attached? %>
+      </div>
+      <div class="uk-card-footer">
+        <h4>
+          <%= link_to c.title, c %>
+          <% if c.private? %>
+            <span class="uk-label">Private</span>
+          <% end %>
+        </h4>
+        <p>
+          <%= c.user.username %>
+        </p>
+        <p>
+          <%= c.description %>
+        </p>
+        <p>
+          <% if c.finished? %>
+            <%= "Finished" %>
+          <% elsif c.started? %>
+            <%= "Started" %>
+          <% else %>
+            <%= "Not started" %>
+          <% end %>
+        </p>
+      </div>
+    </div>
   <% end %>
 <% else %>
   <p>

@@ -33,4 +33,12 @@ class Commission < ApplicationRecord
       self.save
     end
   end
+
+  def thumbnail
+    if self.files.attached?
+      self.files.first.variant(resize_to_limit: [200, 200]).processed.image
+    else
+      false
+    end
+  end
 end
