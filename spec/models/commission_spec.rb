@@ -49,4 +49,35 @@ RSpec.describe Commission, type: :model do
       expect(commission).to be_invalid
     end
   end
+
+  context "start method" do
+    before(:example) do
+      @commission = create(:commission, started: false)
+      @commission.start
+    end
+
+    it "should start a commission that hasn't been started yet" do
+      expect(@commission.started?).to eq(true)
+    end
+
+    it "should set started_at to the current time" do
+      expect(@commission.started_at).to be_within(1.minute).of(Time.now)
+    end
+  end
+
+  context "finish method" do
+    before(:example) do
+      @commission = create(:commission, finished: false)
+      @commission.finish
+    end
+
+    it "should finish a commission that hasn't been finished yet" do
+      expect(@commission.finished?).to eq(true)
+    end
+
+    it "should set finished_at to the current time" do
+      # 1.second should also work, but brittle tests bad.
+      expect(@commission.finished_at).to be_within(1.minute).of(Time.now)
+    end
+  end
 end
