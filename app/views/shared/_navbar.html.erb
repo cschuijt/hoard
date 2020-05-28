@@ -3,20 +3,38 @@
     <%= link_to "Hoard", root_url, class: "uk-navbar-item uk-logo" %>
 
     <ul class="uk-navbar-nav">
-      <li><%= link_to "Home",   root_url %></li>
-      <li><%= link_to "Browse", commissions_url %></li>
-      <li><a href="">Upload</a></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "Home",   root_url %></li>
+        <li><%= link_to "Commissions", commissions_url %></li>
+        <li><%= link_to "Folders", folders_url %></li>
+      <% end %>
     </ul>
   </div>
 
   <div class="uk-navbar-right">
-    <div class="uk-navbar-item">
-      <!-- TODO Build user menu here -->
-      <% if user_signed_in? %>
-        <%= link_to "Log Out", destroy_user_session_url, method: :delete, class: "uk-button uk-button-default" %>
-      <% else %>
+    <% if user_signed_in? %>
+      <ul class="uk-navbar-nav" style="background-color: #f0f0f0;">
+        <li>
+          <a href="">
+            <span class="uk-icon uk-icon-image" style="background-image: url(<%= current_user.image_url %>); margin-right: 5px;"></span>
+            @<%= current_user.username %>
+          </a>
+          <div class="uk-navbar-dropdown">
+            <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li><a href="#">My profile</a></li>
+              <li class="uk-nav-divider"></li>
+              <li><%= link_to "New commission", new_commission_url %></li>
+              <li><%= link_to "New folder", new_folder_url %></li>
+              <li class="uk-nav-divider"></li>
+              <li><%= link_to "Log out", destroy_user_session_url, method: :delete %></li>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    <% else %>
+      <div class="uk-navbar-item">
         <%= link_to "Log In", user_twitter_omniauth_authorize_url, class: "uk-button uk-button-default" %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </nav>
