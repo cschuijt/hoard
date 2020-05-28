@@ -51,6 +51,13 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context "admin" do
+    it "should be false by default" do
+      user = create(:user)
+      expect(user.admin?).to be false
+    end
+  end
+
   context "commissions" do
     it "should return a user's commissions" do
       user = create(:user)
