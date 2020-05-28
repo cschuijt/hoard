@@ -1,7 +1,7 @@
 class Commission < ApplicationRecord
   belongs_to :user
-  has_many   :filings
-  has_many   :folders, through: :filings
+  has_many   :filings, dependent: :destroy
+  has_many   :folders, through:   :filings
 
   validates :title,       presence: true, length: { in: 3..128 }
   validates :description,                 length: { maximum: 20000 }
