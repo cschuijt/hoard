@@ -71,6 +71,18 @@ RSpec.describe "Folders", type: :request do
           expect(response).to redirect_to(folders_url)
         end
       end
+
+      context "when logged in as an admin" do
+        it "should be successful" do
+          admin  = create(:user, admin: true)
+          folder = create(:folder, private: true)
+
+          log_in_as admin
+          get "/folders/#{folder.id}"
+
+          expect(response).to have_http_status(:success)
+        end
+      end
     end
   end
 
@@ -121,7 +133,7 @@ RSpec.describe "Folders", type: :request do
 
         post "/folders", params: { folder: attributes_for(:folder, title: "") }
 
-        expect(response).not_to be_a_new(Folder)
+        expect(response).to have_http_status(:success)
       end
     end
   end
@@ -159,6 +171,18 @@ RSpec.describe "Folders", type: :request do
         expect(response).to have_http_status(:success)
       end
     end
+
+    context "when logged in as admin" do
+      it "should be successful" do
+        admin = create(:user, admin: true)
+        folder = create(:folder)
+
+        log_in_as admin
+        get "/folders/#{folder.id}/edit"
+
+        expect(response).to have_http_status(:success)
+      end
+    end
   end
 
   describe "PATCH /folders/:id" do
@@ -181,6 +205,7 @@ RSpec.describe "Folders", type: :request do
         expect(response).to redirect_to(folders_url)
       end
     end
+
 
     context "with valid data" do
       it "should be successful" do
@@ -205,44 +230,88 @@ RSpec.describe "Folders", type: :request do
         expect(response).to have_http_status(:success)
       end
     end
+
+    context "when logged in as admin" do
+      it "should be successful" do
+        admin = create(:user, admin: true)
+        folder = create(:folder)
+
+        log_in_as admin
+        patch "/folders/#{folder.id}", params: { folder: attributes_for(:folder, title: "hehe xd") }
+
+        expect(response).to redirect_to(folder_url(folder.id))
+      end
+    end
   end
 
   describe "DELETE /folders/:id" do
     context "when not logged in" do
+      before(:each) do
+        @folder = create(:folder)
+        delete "/folders/#{@folder.id}"
+      end
+
       it "should redirect to login page" do
-        folder = create(:folder)
-
-        delete "/folders/#{folder.id}"
-
         expect(response).to redirect_to(new_user_session_url)
+      end
+
+      it "should not delete the folder" do
+        get "/folders/#{@folder.id}"
+        expect(response).to have_http_status(:success)
       end
     end
 
-    # There is no functional difference between the two assertations here,
-    # they both test for a redirect to the folders index. Find a way to
-    # make these tests more meaningful! TODO
-
     context "when logged in as someone else" do
-      it "should redirect to folders" do
-        folder = create(:folder)
+      before(:each) do
+        @folder = create(:folder)
         log_in_as create(:user)
 
-        delete "/folders/#{folder.id}"
+        delete "/folders/#{@folder.id}"
+      end
 
+      it "should redirect to folders" do
         expect(response).to redirect_to(folders_url)
+      end
+
+      it "should not delete the folder" do
+        get "/folders/#{@folder.id}"
+        expect(response).to have_http_status(:success)
       end
     end
 
     context "when logged in as the right user" do
-      it "should succeed" do
-        user = create(:user)
-        folder = create(:folder, user: user)
+      before(:each) do
+        user    = create(:user)
+        @folder = create(:folder, user: user)
 
         log_in_as user
+        delete "/folders/#{@folder.id}"
+      end
 
-        delete "/folders/#{folder.id}"
-
+      it "should redirect to folders url" do
         expect(response).to redirect_to(folders_url)
+      end
+
+      it "should delete the folder" do
+        expect(Folder.count).to be 0
+      end
+    end
+
+    context "when logged in as admin" do
+      before(:each) do
+        admin   = create(:user, admin: true)
+        @folder = create(:folder)
+
+        log_in_as admin
+        delete "/folders/#{@folder.id}"
+      end
+
+      it "should redirect to folders url" do
+        expect(response).to redirect_to(folders_url)
+      end
+
+      it "should delete the folder" do
+        expect(Folder.count).to be 0
       end
     end
   end
