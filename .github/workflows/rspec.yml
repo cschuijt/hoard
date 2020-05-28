@@ -11,7 +11,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master ]	
+    branches: [ master ]
 
 
 
@@ -59,7 +59,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
     - name: Install yarn packages
-      run: yarn install --check-files
+      run: yarn install
 
     - name: Prepare database
       run: |
