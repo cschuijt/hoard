@@ -61,6 +61,9 @@ jobs:
     - name: Install yarn packages
       run: yarn install
 
+    - name: State UIkit version
+      run: yarn list uikit
+
     - name: Prepare database
       run: |
         bundle exec rails db:prepare
