@@ -1,5 +1,9 @@
 class PagesController < ApplicationController
   def home
-    render layout: "no_partials"
+    if user_signed_in?
+      render 'landing'
+    else
+      render layout: "no_partials"
+    end
   end
 end
