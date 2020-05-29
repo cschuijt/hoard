@@ -17,7 +17,8 @@
         <li>
           <a href="">
             <span class="uk-icon uk-icon-image uk-margin-small-right" style="background-image: url(<%= current_user.image_url %>);"></span>
-            @<%= current_user.username %>
+            <span class="uk-visible@s">@<%= current_user.username %></span>
+            <span class="uk-margin-small-left" uk-icon="chevron-down"></span>
           </a>
           <div class="uk-navbar-dropdown">
             <ul class="uk-nav uk-navbar-dropdown-nav">
