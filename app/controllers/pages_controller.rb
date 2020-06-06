@@ -9,7 +9,7 @@ class PagesController < ApplicationController
                                left_outer_joins(:filings).where(finished: true,
                                filings: { commission_id: nil })
 
-      @folders = current_user.folders.includes(:filings).limit(4)
+      @folders = current_user.folders.includes(:filings).limit(6)
 
       render 'landing'
     else
