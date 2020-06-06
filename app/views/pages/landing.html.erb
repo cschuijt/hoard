@@ -23,6 +23,18 @@
         <h5>Or, browse your collection:</h5>
 
         <div class="uk-child-width-auto" uk-grid>
+          <div class="uk-width-1-1@s uk-width-auto@l">
+            <div class="uk-child-width-1-1 uk-grid-small" uk-grid>
+              <%= link_to commissions_url, class: "uk-button uk-button-default" do %>
+                <span class="uk-margin-small-right" uk-icon="copy"></span>
+                Commissions
+              <% end %>
+              <%= link_to folders_url, class: "uk-button uk-button-default" do %>
+                <span class="uk-margin-small-right" uk-icon="folder"></span>
+                Folders
+              <% end %>
+            </div>
+          </div>
           <% @folders.each do |folder| %>
             <div>
               <div class="uk-panel uk-text-center">
@@ -36,17 +48,6 @@
               </div>
             </div>
           <% end %>
-            <div>
-              <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-2-3" do %>
-                <span class="uk-margin-small-right" uk-icon="copy"></span>
-                Commissions
-              <% end %>
-
-              <%= link_to folders_url, class: "uk-button uk-button-default uk-width-2-3" do %>
-                <span class="uk-margin-small-right" uk-icon="folder"></span>
-                Folders
-              <% end %>
-            </div>
         </div>
       </div>
     </div>
