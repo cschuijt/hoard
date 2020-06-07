@@ -1,0 +1,15 @@
+<div class="uk-card uk-card-small uk-card-default">
+  <%= link_to commission, class: "uk-link-toggle" do %>
+    <div class="uk-card-media-top uk-text-center">
+      <% if commission.files.attached? %>
+        <%= image_tag commission.thumbnail %>
+      <% else %>
+        <span class="uk-padding" uk-icon="icon: copy; ratio: 3"></span>
+      <% end %>
+    </div>
+
+    <div class="uk-card-body">
+      <h5 class="uk-link-heading"><%= commission.title %></h5>
+    </div>
+  <% end %>
+</div>

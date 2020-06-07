@@ -1,36 +1,14 @@
 <h1>Commissions</h1>
 
 <% unless @commissions.empty? %>
-  <% @commissions.each do |c| %>
-    <div class="uk-card uk-card-default">
-      <div class="uk-card-body">
-        <%= image_tag c.thumbnail if c.files.attached? %>
+  <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m uk-child-width-1-6@l" uk-grid uk-height-match=".uk-card">
+    <% @commissions.each do |commission| %>
+      <div>
+        <%= render commission %>
       </div>
-      <div class="uk-card-footer">
-        <h4>
-          <%= link_to c.title, c %>
-          <% if c.private? %>
-            <span class="uk-label">Private</span>
-          <% end %>
-        </h4>
-        <p>
-          <%= c.user.username %>
-        </p>
-        <p>
-          <%= c.description %>
-        </p>
-        <p>
-          <% if c.finished? %>
-            <%= "Finished" %>
-          <% elsif c.started? %>
-            <%= "Started" %>
-          <% else %>
-            <%= "Not started" %>
-          <% end %>
-        </p>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
+
 <% else %>
   <p>
     You don't have any commissions yet. Why not
