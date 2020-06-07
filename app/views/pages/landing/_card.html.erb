@@ -42,9 +42,21 @@
 
       <div class="uk-grid-small" uk-grid>
         <div class="uk-width-1-1">
-          <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
-            <span class="uk-margin-small-right" uk-icon="folder"></span>
-            All commission ideas
+          <% if type == :ideas %>
+            <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              All commission ideas
+            <% end %>
+          <% elsif type == :wips %>
+            <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              All WIPs
+            <% end %>
+          <% elsif type == :unsorted %>
+            <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              All unsorted commissions
+            <% end %>
           <% end %>
         </div>
       </div>
