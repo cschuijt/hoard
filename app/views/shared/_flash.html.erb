@@ -1,6 +1,10 @@
 <% unless flash.empty? %>
   <% flash.each do |type, message| %>
-    <div class="uk-margin-top">
+    <% if local_assigns[:no_margin] %>
+      <div>
+    <% else %>
+      <div class="uk-margin-top">
+    <% end %>
       <div class="uk-alert-<%= flash_type(type) %>" uk-alert>
         <a class="uk-alert-close" uk-close></a>
         <h3><%= type.capitalize %></h3>
