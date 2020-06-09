@@ -1,5 +1,5 @@
 <%= render 'shared/navbar' %>
-
+<% if @c.files.attached? %>
 <div class="uk-position-relative" style="background-color: #f0f0f0;" uk-slideshow="ratio: false">
   <div class="uk-grid-collapse uk-flex-center" uk-grid>
     <div class="uk-width-1-1@s uk-width-expand@l uk-position-relative">
@@ -34,8 +34,13 @@
     <% end %>
   </div>
 </div>
+<% end %>
 
 <div class="uk-container uk-margin-top">
+  <% unless @c.files.attached? %>
+    <%= render 'shared/flash' %>
+  <% end %>
+  
   <div>
     <h1>
       <% if @f %>
