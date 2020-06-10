@@ -1,39 +1,46 @@
 <%= render 'shared/navbar' %>
+
 <% if @c.files.attached? %>
-<div class="uk-position-relative" style="background-color: #f0f0f0;" uk-slideshow="ratio: false">
-  <div class="uk-grid-collapse uk-flex-center" uk-grid>
-    <div class="uk-width-1-1@s uk-width-expand@l uk-position-relative">
-      <ul class="uk-slideshow-items uk-background-secondary" uk-height-viewport="offset-bottom: 20">
-        <% @c.files.each do |file| %>
-        <li>
-          <img src="<%= url_for file %>" class="uk-position-center" style="max-height: 100%; width: auto;">
-        </li>
-        <% end %>
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-light" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-light" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-
-      <div class="uk-position-top">
-        <%= render 'shared/flash', no_margin: true %>
-      </div>
-    </div>
-
-    <% if @c.files.count > 1 %>
-      <div class="uk-width-auto uk-visible@l uk-margin-top uk-margin-left uk-margin-right">
-        <ul class="uk-thumbnav uk-thumbnav-vertical uk-text-center">
-          <% @c.files.each_with_index do |f, i| %>
-            <li uk-slideshow-item="<%= i %>">
-              <a href="#">
-                <%= image_tag f.variant(resize_to_limit: [100, 100]).processed.image %>
-              </a>
+  <div class="uk-position-relative" style="background-color: #f0f0f0;" uk-slideshow="ratio: false">
+    <div class="uk-grid-collapse uk-flex-center" uk-grid>
+      <div class="uk-width-1-1@s uk-width-expand@l uk-position-relative">
+        <ul class="uk-slideshow-items uk-background-secondary" uk-height-viewport="offset-bottom: 20">
+          <% @c.files.each do |file| %>
+            <li>
+              <img src="<%= url_for file %>" class="uk-position-center" style="max-height: 100%; width: auto;">
             </li>
           <% end %>
         </ul>
+
+        <a class="uk-position-center-left uk-position-small uk-light" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-light" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+        <div class="uk-position-top">
+          <%= render 'shared/flash', no_margin: true %>
+        </div>
       </div>
-    <% end %>
+
+      <% if @c.files.count > 1 %>
+        <div class="uk-width-auto uk-visible@l uk-margin-top uk-margin-left uk-margin-right">
+          <ul class="uk-thumbnav uk-thumbnav-vertical uk-text-center">
+            <% @c.files.each_with_index do |f, i| %>
+              <li uk-slideshow-item="<%= i %>">
+                <a href="#">
+                  <%= image_tag f.variant(resize_to_limit: [100, 100]).processed.image %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if @c.files.count > 1 %>
+        <div class="uk-position-medium uk-position-bottom-center uk-hidden@l uk-light">
+          <ul class="uk-slideshow-nav uk-dotnav"></ul>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
 <% end %>
 
 <div class="uk-container uk-margin-top">
