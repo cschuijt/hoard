@@ -1,8 +1,36 @@
 <div class="uk-card uk-card-default uk-card-small">
   <div class="uk-card-body">
     <h3 class="uk-card-title">Metadata</h3>
-    <p>
-      Content goes here
-    </p>
+    <dl class="uk-description-list">
+      <dt>User</dt>
+      <dd>@<%= @c.user.username %></dd>
+
+      <dt>Status</dt>
+      <dd>
+        <% if @c.finished? %>
+          Commission finished
+        <% elsif @c.started? %>
+          Commission started
+        <% else %>
+          Idea (not started)
+        <% end %>
+      </dd>
+
+      <dt>Created</dt>
+      <dd><%= time_ago_in_words(@c.created_at) %> ago</dd>
+
+      <% if @c.started? && @c.started_at %>
+      <dt>Started</dt>
+      <dd><%= time_ago_in_words(@c.started_at) %> ago</dd>
+      <% end %>
+
+      <% if @c.finished? && @c.finished_at %>
+      <dt>Finished</dt>
+      <dd><%= time_ago_in_words(@c.finished_at) %> ago</dd>
+      <% end %>
+
+      <dt>Files attached</dt>
+      <dd><%= @c.files.count %> files</dd>
+    </dl>
   </div>
 </div>
