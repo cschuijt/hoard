@@ -1,6 +1,35 @@
 <div class="uk-card uk-card-default uk-card-small">
+  <% if user_signed_in? && (current_user.admin || current_user == @c.user) %>
+    <div class="uk-card-header">
+      <p>
+        <%= link_to edit_commission_url(@c), class: "uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom" do %>
+          <span class="uk-margin-small-right" uk-icon="file-edit"></span>
+          Edit
+        <% end %>
+
+        <%= link_to commission_url(@c), method: :delete, class: "uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom" do %>
+          <span class="uk-margin-small-right" uk-icon="trash"></span>
+          Delete
+        <% end %>
+
+        <% unless @c.finished? %>
+          <% unless @c.started? %>
+            <%= link_to commission_start_url(@c), method: :patch, class: "uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom" do %>
+              <span class="uk-margin-small-right" uk-icon="tag"></span>
+              Mark as started
+            <% end %>
+          <% else %>
+            <%= link_to commission_finish_url(@c), method: :patch, class: "uk-button uk-button-default uk-width-1-1 uk-margin-small-bottom" do %>
+              <span class="uk-margin-small-right" uk-icon="tag"></span>
+              Mark as finished
+            <% end %>
+          <% end %>
+        <% end %>
+      </p>
+    </div>
+  <% end %>
+
   <div class="uk-card-body">
-    <h3 class="uk-card-title">Metadata</h3>
     <dl class="uk-description-list">
       <dt>User</dt>
       <dd>@<%= @c.user.username %></dd>
@@ -31,6 +60,9 @@
 
       <dt>Files attached</dt>
       <dd><%= @c.files.count %> files</dd>
+
+      <dt>Folders</dt>
+      <dd><%= @c.filings.count %> folders</dd>
     </dl>
   </div>
 </div>
