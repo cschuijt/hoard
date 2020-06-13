@@ -10,9 +10,9 @@ class CommissionsController < ApplicationController
   def show
     if params[:folder_id]
       @f = Folder.find(params[:folder_id])
-      @c = @f.commissions.with_attached_files.find(params[:id])
+      @c = @f.commissions.includes(:filings).with_attached_files.find(params[:id])
     else
-      @c = Commission.with_attached_files.find(params[:id])
+      @c = Commission.includes(:filings).with_attached_files.find(params[:id])
     end
 
     render layout: "no_partials"

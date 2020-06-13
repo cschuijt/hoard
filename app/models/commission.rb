@@ -41,4 +41,22 @@ class Commission < ApplicationRecord
       false
     end
   end
+
+  # Methods to grab the next/previous n number of commissions from a folder or
+  # all of the user's commissions
+  def next(n = 1, folder = nil)
+    if folder == nil
+      user.commissions.where("id > ?", id).first(n)
+    else
+      folder.filings.where("commission_id > ?", id).first(n)
+    end
+  end
+
+  def prev(n = 1, folder = nil)
+    if folder == nil
+      user.commissions.where("id < ?", id).last(n)
+    else
+      folder.filings.where("commission_id < ?", id).last(n)
+    end
+  end
 end
