@@ -45,6 +45,15 @@
         <% end %>
       </dd>
 
+      <dt>Visibility</dt>
+      <dd>
+        <% if @c.private? %>
+          Private
+        <% else %>
+          Public
+        <% end %>
+      </dd>
+
       <dt>Created</dt>
       <dd><%= time_ago_in_words(@c.created_at) %> ago</dd>
 
