@@ -1,0 +1,30 @@
+<div class="uk-card uk-card-default uk-card-small">
+  <div class="uk-card-body">
+    <h3 class="uk-card-title">Files</h3>
+    <% if @c.files.attached? %>
+    <p>
+      <%= @c.files.count %> files attached:
+    </p>
+    <div class="uk-grid-small uk-flex uk-child-width-auto" uk-grid>
+      <% @c.files.each do |file| %>
+        <div>
+          <div class="uk-card uk-card-body uk-card-default uk-card-small">
+            <%= image_tag file.variant(resize_to_limit: [100, 100]).processed.image %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <% else %>
+      <p class="uk-text-italic uk-text-muted">
+        This commission has no files attached yet.
+      </p>
+    <% end %>
+
+    <div class="uk-margin-top">
+      <%= form_with url: {action: 'upload_file'} do |f| %>
+        <%= f.file_field :files, multiple: true %>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>
+</div>

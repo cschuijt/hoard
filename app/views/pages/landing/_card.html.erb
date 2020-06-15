@@ -1,0 +1,93 @@
+<div class="uk-card uk-card-default">
+  <div class="uk-card-body">
+    <h4>
+      <% if type == :ideas %>
+        Commission ideas
+      <% elsif type == :wips %>
+        Works in progress
+      <% elsif type == :unsorted %>
+        Unsorted commissions
+      <% end %>
+    </h4>
+    <% if commissions.any? %>
+      <% commissions.each do |commission| %>
+        <a href="<%= commission_url(commission) %>" class="uk-grid-small uk-flex-middle uk-link-toggle" uk-grid>
+          <div class="uk-width-auto">
+            <% if commission.files.attached? %>
+              <%= image_tag commission.thumbnail, width: 40, height: 40 %>
+            <% else %>
+              <div style="width: 40px; height: 40px;">
+                <span class="uk-icon-button" uk-icon="icon: copy; ratio: 1.11111111;"></span>
+              </div>
+            <% end %>
+          </div>
+          <div class="uk-width-expand">
+            <h4 class="uk-margin-remove-bottom uk-link-heading">
+              <%= commission.title %>
+            </h4>
+            <p class="uk-text-meta uk-margin-remove-top">
+              <% if type == :ideas %>
+                <%= time_ago_in_words(commission.created_at) %> ago
+              <% elsif type == :wips && commission.started_at %>
+                Started <%= time_ago_in_words(commission.started_at) %> ago
+              <% elsif type == :unsorted && commission.finished_at %>
+                Completed <%= time_ago_in_words(commission.finished_at) %> ago
+              <% end %>
+            </p>
+          </div>
+        </a>
+      <% end %>
+    </div>
+    <div class="uk-card-footer">
+
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-1-1">
+          <% if type == :ideas %>
+            <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              All commission ideas
+            <% end %>
+          <% elsif type == :wips %>
+            <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              All WIPs
+            <% end %>
+          <% elsif type == :unsorted %>
+            <%= link_to commissions_url, class: "uk-button uk-button-default uk-width-1-1" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              All unsorted commissions
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="uk-text-center uk-grid-small" uk-grid>
+        <div class="uk-width-1-1 uk-margin-top">
+          <p>
+            <% if type == :ideas %>
+              There's nothing here. Why not get some of your ideas on paper?
+            <% elsif type == :wips %>
+              You do not have any commissions marked as started right now.
+            <% elsif type == :unsorted %>
+              All your finished commissions have been added to a folder!
+            <% end %>
+          </p>
+        </div>
+
+        <div class="uk-width-1-1 uk-margin-top">
+          <% if type == :ideas %>
+            <%= link_to new_commission_url, class: "uk-button uk-width-1-1 uk-button-default" do %>
+              <span class="uk-margin-small-right" uk-icon="file-text"></span>
+              New commission
+            <% end %>
+          <% elsif type == :unsorted %>
+            <%= link_to folders_url, class: "uk-button uk-width-1-1 uk-button-default" do %>
+              <span class="uk-margin-small-right" uk-icon="folder"></span>
+              Your folders
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

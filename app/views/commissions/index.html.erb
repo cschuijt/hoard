@@ -1,39 +1,26 @@
 <h1>Commissions</h1>
 
-<% unless @commissions.empty? %>
-  <% @commissions.each do |c| %>
-    <div class="uk-card uk-card-default">
-      <div class="uk-card-body">
-        <%= image_tag c.thumbnail if c.files.attached? %>
-      </div>
-      <div class="uk-card-footer">
-        <h4>
-          <%= link_to c.title, c %>
-          <% if c.private? %>
-            <span class="uk-label">Private</span>
-          <% end %>
-        </h4>
-        <p>
-          <%= c.user.username %>
-        </p>
-        <p>
-          <%= c.description %>
-        </p>
-        <p>
-          <% if c.finished? %>
-            <%= "Finished" %>
-          <% elsif c.started? %>
-            <%= "Started" %>
-          <% else %>
-            <%= "Not started" %>
-          <% end %>
-        </p>
-      </div>
-    </div>
+<div class="uk-margin-bottom">
+  <%= link_to new_commission_url, class: "uk-button uk-button-default" do %>
+    <span class="uk-margin-small-right" uk-icon="file-edit"></span>
+    New commission
   <% end %>
+</div>
+
+<% unless @commissions.empty? %>
+  <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m uk-child-width-1-6@l" uk-grid uk-height-match=".uk-card">
+    <% @commissions.each do |commission| %>
+      <div>
+        <%= render commission %>
+      </div>
+    <% end %>
+  </div>
+
 <% else %>
-  <p>
-    You don't have any commissions yet. Why not
-    <%= link_to "create a new one?", new_commission_url %>
-  </p>
+  <div>
+    <p>
+      You don't have any commissions yet. Why not
+      <%= link_to "create a new one?", new_commission_url %>
+    </p>
+  </div>
 <% end %>

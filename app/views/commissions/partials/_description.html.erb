@@ -1,0 +1,12 @@
+<div class="uk-card uk-card-default uk-card-small">
+  <div class="uk-card-body">
+    <h3 class="uk-card-title">Description</h3>
+    <p>
+      <% unless @c.description.empty? %>
+        <%= @c.description %>
+      <% else %>
+        <span class="uk-text-muted uk-text-italic">No description set.</span>
+      <% end %>
+    </p>
+  </div>
+</div>

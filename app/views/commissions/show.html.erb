@@ -1,63 +1,84 @@
-<h1>
-  <%= @c.title %>
-  <% if @c.private? %>
-    <span class="uk-label">Private</span>
-  <% end %>
-</h1>
-<p>
-  <%= @c.description %>
-</p>
+<%= render 'shared/navbar' %>
 
-<p>
-  <% unless @c.finished? %>
-    <% if @c.started? %>
-      <%= "Commission started " %>
-      <%= time_ago_in_words(@c.started_at) + " ago." if @c.started_at %>
-    <% else %>
-      <%= "Commission not yet started." %>
-    <% end %>
-  <% else %>
-    <%= "Commission finished " %>
-    <%= time_ago_in_words(@c.finished_at) + " ago." if @c.finished_at %>
-  <% end %>
-</p>
+<% if @c.files.attached? %>
+  <div class="uk-position-relative" style="background-color: #f0f0f0;" uk-slideshow="ratio: false">
+    <div class="uk-grid-collapse uk-flex-center" uk-grid>
+      <div class="uk-width-1-1@s uk-width-expand@l uk-position-relative">
+        <ul class="uk-slideshow-items uk-background-secondary" uk-height-viewport="offset-bottom: 20">
+          <% @c.files.each do |file| %>
+            <li>
+              <img src="<%= url_for file %>" class="uk-position-center" style="max-height: 100%; width: auto;">
+            </li>
+          <% end %>
+        </ul>
 
-<p>
-  <% unless @c.finished? %>
-    <% unless @c.started? %>
-      <%= link_to "Mark as started", commission_start_url(@c), method: :patch %>
-    <% else %>
-      <%= link_to "Mark as finished", commission_finish_url(@c), method: :patch %>
-    <% end %>
-  <% end %>
+        <a class="uk-position-center-left uk-position-small uk-light" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-light" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 
-  <%= link_to "Edit commission", edit_commission_url(@c) %>
-
-  <%= link_to "Delete commission", @c, method: :delete %>
-</p>
-
-<p>
-  <%= form_with url: {action: 'upload_file'} do |f| %>
-    <%= f.file_field :files, multiple: true %>
-    <%= f.submit %>
-  <% end %>
-</p>
-
-<p>
-  <%= form_with url: {action: 'add_to_folder'} do |f| %>
-    <%= f.collection_select :folder_id, current_user.folders, :id, :title, prompt: true %>
-    <%= f.submit %>
-  <% end %>
-</p>
-<% @c.files.each do |file| %>
-  <div>
-    <div class="uk-card uk-card-default">
-      <div class="uk-card-body">
-        <%= image_tag file %>
+        <div class="uk-position-top">
+          <%= render 'shared/flash', no_margin: true %>
+        </div>
       </div>
-      <div class="uk-card-footer">
-        <%= link_to "Delete", delete_file_commission_url(file), method: :delete %>
-      </div>
+
+      <% if @c.files.count > 1 %>
+        <div class="uk-width-auto uk-visible@l uk-margin-top uk-margin-left uk-margin-right">
+          <ul class="uk-thumbnav uk-thumbnav-vertical uk-text-center">
+            <% @c.files.each_with_index do |f, i| %>
+              <li uk-slideshow-item="<%= i %>">
+                <a href="#">
+                  <%= image_tag f.variant(resize_to_limit: [100, 100]).processed.image %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if @c.files.count > 1 %>
+        <div class="uk-position-medium uk-position-bottom-center uk-hidden@l uk-light">
+          <ul class="uk-slideshow-nav uk-dotnav"></ul>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>
+
+<div class="uk-container uk-margin-top">
+  <% unless @c.files.attached? %>
+    <%= render 'shared/flash' %>
+  <% end %>
+
+  <div>
+    <h1>
+      <% if @f %>
+        <%= link_to @f, class: "uk-link-heading" do %>
+          <span class="uk-margin-small-right" uk-icon="icon: arrow-left; ratio: 2;"></span>
+        <% end %>
+      <% else %>
+        <%= link_to commissions_url, class: "uk-link-heading" do %>
+          <span class="uk-margin-small-right" uk-icon="icon: arrow-left; ratio: 2;"></span>
+        <% end %>
+      <% end %>
+
+      <%= @c.title %>
+    </h1>
+  </div>
+
+  <div class="uk-grid-small uk-margin-bottom" uk-grid="masonry: true;">
+    <div class="uk-width-1-1@s uk-width-2-3@m uk-width-3-4@l">
+      <%= render 'commissions/partials/folders' %>
+    </div>
+
+    <div class="uk-width-1-1@s uk-width-1-3@m uk-width-1-4@l">
+      <%= render 'commissions/partials/metadata' %>
+    </div>
+
+    <div class="uk-width-1-1@s uk-width-2-3@m uk-width-3-4@l">
+      <%= render 'commissions/partials/description' %>
+    </div>
+
+    <div class="uk-width-1-1@s uk-width-2-3@m uk-width-3-4@l">
+      <%= render 'commissions/partials/files' %>
+    </div>
+  </div>
+</div>

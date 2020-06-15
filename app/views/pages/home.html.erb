@@ -1,7 +1,89 @@
-<%= render 'shared/navbar', transparent: true %>
+<div class="uk-flex uk-flex-center uk-flex-middle uk-background-cover" data-src="<%# image_path "gamer.png" %>" uk-height-viewport="offset-bottom: 30" style="background-color: #f0f0f0" uk-img>
+  <div class="uk-position-top">
+    <%= render 'shared/navbar', transparent: true %>
+    <div class="uk-margin-large-right uk-margin-large-left">
+      <%= render 'shared/flash' %>
+    </div>
+  </div>
 
-<div class="container">
-  <%= render 'shared/flash' %>
+  <div class="uk-margin-large-left uk-margin-large-right">
+    <h1>Say goodbye to that one spreadsheet.</h1>
+    <p class="uk-text-lead">
+      Hoard lets you track your commissions in one place,
+      even the ones you haven't commissioned yet.
+    </p>
+  </div>
+</div>
 
-  <h1>Home content</h1>
+<div class="uk-container">
+  <div class="uk-text-center uk-margin-top">
+    <h2>Here's how it works:</h2>
+  </div>
+
+  <div class="uk-child-width-1-1@s uk-child-width-1-3@m uk-margin-bottom" uk-grid uk-height-match="target: .uk-card; row: false">
+    <div>
+      <div class="uk-card uk-card-default uk-card-body uk-text-center">
+        <div class="uk-margin-bottom">
+          <span uk-icon="icon: file-edit; ratio: 3"></span>
+        </div>
+        <div>
+          <p>
+            <span class="uk-text-large">Get your ideas on paper.</span><br>
+            You can create a new commission, even if you do not have any art
+            for it yet. Hoard will let you keep track of your idea from the
+            moment you first write it down to the moment an artist brings
+            it to life.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="uk-card uk-card-default uk-card-body uk-text-center">
+        <div class="uk-margin-bottom">
+          <span uk-icon="icon: image; ratio: 3"></span>
+        </div>
+        <div>
+          <p>
+            <span class="uk-text-large">Upload the results.</span><br>
+            Attach the finished work to the idea yourself, or have the artist
+            upload it directly. A commission can have as many files
+            attached to it as you want, alternate versions don't go missing in
+            your scraps.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="uk-card uk-card-default uk-card-body uk-text-center">
+        <div class="uk-margin-bottom">
+          <span uk-icon="icon: folder; ratio: 3"></span>
+        </div>
+        <div>
+          <p>
+            <span class="uk-text-large">Sort your collection.</span><br>
+            Hoard lets you tag and file commissions in folders, so your
+            characters, themes and series always stay together. Make a folder
+            public to share it with the world.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="uk-margin-large-top uk-margin-large-bottom uk-width-1-1 uk-flex-center uk-grid-collapse" uk-grid>
+    <div class="uk-width-1-1@s uk-width-1-2@m uk-width-1-3@l uk-text-center">
+      <h2>Convinced?</h2>
+      <p>
+        Sign in through Twitter to get started! Twitter is only used to
+        authenticate you, I won't read your tweets or profile data without
+        permission.
+      </p>
+      <%= link_to user_twitter_omniauth_authorize_url, class: "uk-button uk-button-primary uk-width-1-1@s uk-width-1-2@m" do %>
+        <span class="uk-margin-small-right" uk-icon="twitter"></span>
+        Log in
+      <% end %>
+    </div>
+  </div>
 </div>

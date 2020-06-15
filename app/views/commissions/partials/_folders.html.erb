@@ -1,0 +1,42 @@
+<div class="uk-card uk-card-default uk-card-small">
+  <div class="uk-card-body">
+    <ul class="uk-switcher">
+      <li>
+        <div class="uk-grid-small uk-flex uk-flex-center uk-flex-middle uk-child-width-auto" uk-grid>
+          <%= render partial: 'commissions/partials/folders/commission', collection: @c.prev(2) %>
+
+          <div class="uk-text-center uk-text-italic uk-text-muted">
+            You are here. <br>
+            <%= link_to "All commissions", commissions_url %>
+          </div>
+
+          <%= render partial: 'commissions/partials/folders/commission', collection: @c.next(2) %>
+        </div>
+      </li>
+      <% @c.folders.each do |f| %>
+        <li>
+          <div class="uk-grid-small uk-flex uk-flex-center uk-flex-middle uk-child-width-auto" uk-grid>
+            <%= render partial: 'commissions/partials/folders/filing', collection: @c.prev(2, f) %>
+
+            <div class="uk-text-center uk-text-italic uk-text-muted">
+              You are here. <br>
+              <%= link_to "Browse folder", f %>
+            </div>
+
+            <%= render partial: 'commissions/partials/folders/filing', collection: @c.next(2, f) %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+    <ul class="uk-tab-bottom uk-child-width-expand" uk-switcher="connect: .uk-switcher; active: <%= active_folder @c.folders, @f %>" uk-tab>
+      <li><a href="#">All commissions</a></li>
+      <% @c.folders.each do |f| %>
+        <li>
+          <a href="#">
+            <%= f.title %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
