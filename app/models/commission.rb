@@ -42,13 +42,22 @@ class Commission < ApplicationRecord
     end
   end
 
+  def small
+    if self.files.attached?
+      self.files.first.variant(resize_to_limit: [100, 100]).processed.image
+    else
+      false
+    end
+  end
+
   # Methods to grab the next/previous n number of commissions from a folder or
   # all of the user's commissions
   def next(n = 1, folder = nil)
     if folder == nil
       user.commissions.where("id > ?", id).first(n)
     else
-      folder.filings.where("commission_id > ?", id).first(n)
+      filing = folder.filings.find_by(commission_id: id)
+      folder.filings.where("id > ?", filing.id).first(n)
     end
   end
 
@@ -56,7 +65,8 @@ class Commission < ApplicationRecord
     if folder == nil
       user.commissions.where("id < ?", id).last(n)
     else
-      folder.filings.where("commission_id < ?", id).last(n)
+      filing = folder.filings.find_by(commission_id: id)
+      folder.filings.where("id < ?", filing.id).last(n)
     end
   end
 end

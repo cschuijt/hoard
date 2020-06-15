@@ -1,0 +1,11 @@
+<div>
+  <div class="uk-card uk-card-body uk-card-default uk-card-small">
+    <%= link_to folder_commission_url(filing.folder, filing.commission), class: "uk-link-muted" do %>
+      <% if filing.commission.small %>
+        <%= image_tag filing.commission.small %>
+      <% else %>
+        <span class="uk-padding-small" uk-icon="icon: move; ratio: 2"></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>
