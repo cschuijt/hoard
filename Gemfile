@@ -13,7 +13,7 @@ gem 'puma', '~> 4.1'
 
 # Asset pipelines
 gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 5.1'
+gem 'webpacker', '~> 5.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 
