@@ -25,7 +25,7 @@ gem 'omniauth', '~> 1.9.1'
 gem 'omniauth-twitter', '~> 1.4.0'
 
 # File uploads, validation and image processing
-gem 'active_storage_validations', '~> 0.8.9'
+gem 'active_storage_validations', '~> 0.9.2'
 gem 'image_processing', '~> 1.11.0'
 
 group :development, :test do
