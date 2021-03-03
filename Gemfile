@@ -9,7 +9,7 @@ gem 'sqlite3', '~> 1.4'
 gem 'pg', '~> 1.2'
 
 # Puma as webserver for development
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 5.2'
 
 # Asset pipelines
 gem 'sass-rails', '>= 6'
